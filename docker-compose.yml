@@ -1,0 +1,8 @@
+version: '3.9'
+
+services:
+  api:
+    container_name: beer-service
+    image: olaf67/mypubbeerservice
+    ports:
+      - 5001:80
