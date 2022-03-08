@@ -1,39 +1,52 @@
-<section>
-  <table
-    mat-table
-    [dataSource]="dataSource"
-    style="width: 1367px"
-    class="mat-elevation-z8"
-  >
-    <ng-container matColumnDef="Nom">
+<section class="mat-elevation-z8">
+  <!--style="width: 1880px"-->
+  <table mat-table [dataSource]="dataSource" multiTemplateDataRows style="width: 1880px">
+    <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Nom</th>
       <td mat-cell *matCellDef="let element">{{ element.name }}</td>
     </ng-container>
-    <ng-container matColumnDef="Pays">
+    <ng-container matColumnDef="country">
       <th mat-header-cell *matHeaderCellDef>Pays</th>
       <td mat-cell *matCellDef="let element">{{ element.country }}</td>
     </ng-container>
-    <ng-container matColumnDef="Type">
+    <ng-container matColumnDef="type">
       <th mat-header-cell *matHeaderCellDef>Type</th>
       <td mat-cell *matCellDef="let element">{{ element.type }}</td>
     </ng-container>
-    <ng-container matColumnDef="Categorie">
+    <ng-container matColumnDef="categories">
       <th mat-header-cell *matHeaderCellDef>Categorie</th>
       <td mat-cell *matCellDef="let element">{{ element.categories }}</td>
     </ng-container>
-    <ng-container matColumnDef="Degré">
+    <ng-container matColumnDef="degree">
       <th mat-header-cell *matHeaderCellDef>Degré</th>
-      <td mat-cell *matCellDef="let element">{{ element.degree }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.degree }}°</td>
     </ng-container>
-    <ng-container matColumnDef="Volumetrie">
+    <ng-container matColumnDef="bottle">
       <th mat-header-cell *matHeaderCellDef>Volumetrie</th>
-      <td mat-cell *matCellDef="let element">{{ element.bottle }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.bottle }}cl</td>
     </ng-container>
-    <ng-container matColumnDef="Description">
-      <th mat-header-cell *matHeaderCellDef>Description</th>
-      <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+
+    <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+        <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+          <fa-icon [icon]="faBeer" class="example-element-diagram"></fa-icon>
+          <div class="example-element-description"> {{element.description}} </div>
+        </div>
+      </td>
     </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    <tr mat-row *matRowDef="let element; columns: displayedColumns;"
+        class="example-element-row"
+        [class.example-expanded-row]="expandedElement === element"
+        (click)="expandedElement = expandedElement === element ? null : element">
+    </tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
   </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                  showFirstLastButtons
+                  aria-label="Select page">
+  </mat-paginator>
 </section>
