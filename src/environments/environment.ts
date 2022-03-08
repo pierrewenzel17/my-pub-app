@@ -2,11 +2,11 @@ export const environment = {
   production: false,
   backend: {
     protocol: 'http',
-    host: 'localhost',
+    host: '127.0.0.1',
     port: '5001',
     endpoints: {
-      toutesLesBieres: '/api/beer',
-      uneBiere: '/api/beer/:id'
+      toutesLesBieres: '/api/Beer',
+      uneBiere: '/api/Beer/:id'
     }
   }
 };

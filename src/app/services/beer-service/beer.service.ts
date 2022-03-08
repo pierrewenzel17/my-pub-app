@@ -37,7 +37,7 @@ export class BeerService {
   }
 
   fetch(): Observable<Beer[]> {
-    return this.http.get<Beer[]>("http://localhost:5001/api/beer");
+    return this.http.get<Beer[]>(this.urlServer.toutesLesBieres);
   }
 
   fetchOne(id: string): Observable<Beer> {

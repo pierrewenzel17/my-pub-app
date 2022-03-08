@@ -1,26 +1,10 @@
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">Nom</th>
-      <th scope="col">Pays</th>
-      <th scope="col">Type</th>
-      <th scope="col">Categorie</th>
-      <th scope="col">Degré</th>
-      <th scope="col">Volumetrie</th>
-      <th scope="col">Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let beer of beers | async">
-      <th scope="row">{{ beer.id }}</th>
-      <td><ngb-highlight [result]="beer.name"></ngb-highlight></td>
-      <td><ngb-highlight [result]="beer.country"></ngb-highlight></td>
-      <td><ngb-highlight [result]="beer.type"></ngb-highlight></td>
-      <td><ngb-highlight [result]="beer.categories"></ngb-highlight></td>
-      <td><ngb-highlight [result]="beer.degree | number"></ngb-highlight></td>
-      <td><ngb-highlight [result]="beer.bottle | number"></ngb-highlight></td>
-      <td><ngb-highlight [result]="beer.description"></ngb-highlight></td>
-    </tr>
-  </tbody>
-
-</table>
+<mat-list>
+  <mat-list-item *ngFor="let beer of beers" class="mat-whiteframe-2dp mat-card">
+    <fa-icon [icon]="faBeer" size="lg"></fa-icon>
+    <h3 mat-line>{{ beer.name }}</h3>
+    <h2 mat-line>{{ beer.country }} | {{ beer.degree }}°</h2>
+    <p mat-line>
+      <span> {{ beer.type }} </span> — <span>{{ beer.categories }} </span>
+    </p>
+  </mat-list-item>
+</mat-list>
