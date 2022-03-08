@@ -1,1 +1,26 @@
-<p>accueil works!</p>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Nom</th>
+      <th scope="col">Pays</th>
+      <th scope="col">Type</th>
+      <th scope="col">Categorie</th>
+      <th scope="col">Degré</th>
+      <th scope="col">Volumetrie</th>
+      <th scope="col">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let beer of beers | async">
+      <th scope="row">{{ beer.id }}</th>
+      <td><ngb-highlight [result]="beer.name"></ngb-highlight></td>
+      <td><ngb-highlight [result]="beer.country"></ngb-highlight></td>
+      <td><ngb-highlight [result]="beer.type"></ngb-highlight></td>
+      <td><ngb-highlight [result]="beer.categories"></ngb-highlight></td>
+      <td><ngb-highlight [result]="beer.degree | number"></ngb-highlight></td>
+      <td><ngb-highlight [result]="beer.bottle | number"></ngb-highlight></td>
+      <td><ngb-highlight [result]="beer.description"></ngb-highlight></td>
+    </tr>
+  </tbody>
+
+</table>
