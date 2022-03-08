@@ -1,1 +1,10 @@
-<p>accueil works!</p>
+<mat-list>
+  <mat-list-item *ngFor="let beer of beers" class="mat-whiteframe-2dp mat-card">
+    <fa-icon [icon]="faBeer" size="lg"></fa-icon>
+    <h3 mat-line>{{ beer.name }}</h3>
+    <h2 mat-line>{{ beer.country }} | {{ beer.degree }}°</h2>
+    <p mat-line>
+      <span> {{ beer.type }} </span> — <span>{{ beer.categories }} </span>
+    </p>
+  </mat-list-item>
+</mat-list>
