@@ -2,20 +2,16 @@
   <mat-drawer #drawer mode="side">
     <mat-nav-list>
       <mat-list-item [routerLink]="['/accueil']">
-        <span class="full-width">{{'Accueil'}}</span>
-        <mat-icon mat-list-icon fontSet="fa" fontIcon="fa-house"></mat-icon>
+        <span class="full-width"><i class="fa-solid fa-house"></i> Accueil</span>
       </mat-list-item>
       <mat-list-item [routerLink]="['/tableau']">
-        <span class="full-width">{{'Tableau'}}</span>
-        <mat-icon mat-list-icon fontSet="fa" fontIcon="fa-table"></mat-icon>
+        <span class="full-width"><i class="fa-solid fa-table"></i> Tableau</span>
       </mat-list-item>
       <mat-list-item [routerLink]="['/graph']">
-        <span class="full-width">{{'Graphe'}}</span>
-        <mat-icon mat-list-icon fontSet="fa" fontIcon="fa-chart-column"></mat-icon>
+        <span class="full-width"><i class="fa-solid fa-chart-column"></i> Graphique</span>
       </mat-list-item>
       <mat-list-item [routerLink]="['/contact']">
-        <span class="full-width">{{ 'Contact' }}</span>
-        <mat-icon mat-list-icon fontSet="fa" fontIcon="fa-circle-question"></mat-icon>
+        <span class="full-width"><i class="fa-solid fa-circle-question"></i>  Contact</span>
       </mat-list-item>
     </mat-nav-list>
   </mat-drawer>
