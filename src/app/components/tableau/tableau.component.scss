@@ -1,5 +1,8 @@
-table {
-  width: 100%;
+section {
+  margin-top: 10px;
+  width: 1020px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 tr.example-detail-row {
@@ -52,9 +55,7 @@ tr.example-element-row:not(.example-expanded-row):active {
 }
 
 .button_add_style {
-  float: right !important;
-  margin: 10px 30px 10px 10px !important;
-  width: 100px !important;
+  width: 100%;
 }
 
 th {
