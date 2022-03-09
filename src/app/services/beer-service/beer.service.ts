@@ -44,6 +44,10 @@ export class BeerService {
     return this.http.get<Beer>(this.urlServer.uneBiere.replace(':id', id));
   }
 
+  fetchNumber(): Observable<Beer[]> {
+    return this.http.get<Beer[]>(this.urlServer.toutesLesBieresParNombre);
+  }
+
   create(biere: Beer): Observable<Beer> {
     return this.http.post<Beer>(this.urlServer.toutesLesBieres, biere);
   }
@@ -52,7 +56,7 @@ export class BeerService {
     return this.http.put<Beer>(this.urlServer.uneBiere.replace(':id', biere.id), biere);
   }
 
-  delete(id: string): Observable<any> {
-    return this.http.delete(this.urlServer.uneBiere.replace(':id', id));
+  delete(id: number): Observable<any> {
+    return this.http.delete(this.urlServer.uneBiere.replace(':id', id.toString()));
   }
 }

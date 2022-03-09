@@ -6,6 +6,7 @@ export const environment = {
     port: '5001',
     endpoints: {
       toutesLesBieres: '/api/beer',
+      toutesLesBieresParNombre: '/api/Beer',
       uneBiere: '/api/beer/:id'
     }
   }

@@ -50,3 +50,13 @@ tr.example-element-row:not(.example-expanded-row):active {
 .icon-display {
   transform: scale(2);
 }
+
+.button_add_style {
+  float: right !important;
+  margin: 10px 30px 10px 10px !important;
+  width: 100px !important;
+}
+
+th {
+  font-weight: bold;
+}

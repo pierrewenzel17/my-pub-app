@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Beer } from 'app/models/beer';
 import { BeerService } from 'app/services/beer-service/beer.service';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { faBeer } from '@fortawesome/free-solid-svg-icons';
+import { faBeer, faPlus, faTrash, faPen } from '@fortawesome/free-solid-svg-icons';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { getPaginatorRename } from './paginator-rename';
 
 @Component({
   selector: 'tableau',
@@ -17,13 +19,16 @@ import { faBeer } from '@fortawesome/free-solid-svg-icons';
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
+  providers: [
+    { provide: MatPaginatorIntl, useValue: getPaginatorRename() }
+  ]
 })
 export class TableauComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
 
   beers: Beer[] = [];
-  faBeer = faBeer;
+  faBeer = faBeer; faPlus = faPlus; faDelete = faTrash; faUpdate = faPen;
   expandedElement!: Beer | null;
   public dataSource = new MatTableDataSource<Beer>();
   displayedColumns: string[] = [
@@ -32,7 +37,9 @@ export class TableauComponent implements OnInit, AfterViewInit {
     'type',
     'categories',
     'degree',
-    'bottle'
+    'bottle',
+    'edit',
+    'delete'
   ];
 
   constructor(private readonly beerService : BeerService){}
@@ -42,10 +49,25 @@ export class TableauComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.beerService.fetch().subscribe((beers) => {
+    this.beerService.fetchNumber().subscribe((beers) => {
       this.beers = beers;
       this.dataSource = new MatTableDataSource(this.beers);
     });
+  }
+
+  add() {
+    window.location.reload();
+  }
+
+  edit() {
+    window.location.reload();
+  }
+
+  delete(beer: Beer) {
+    this.beerService.delete(beer.id).subscribe((beers) => {
+      this.beers = beers;
+    });
+    window.location.reload();
   }
 }
 
