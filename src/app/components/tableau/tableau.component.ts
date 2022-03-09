@@ -7,6 +7,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { faBeer, faPlus, faTrash, faPen } from '@fortawesome/free-solid-svg-icons';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { getPaginatorRename } from './paginator-rename';
+import { startWith, tap } from 'rxjs';
 
 @Component({
   selector: 'tableau',
@@ -25,13 +26,15 @@ import { getPaginatorRename } from './paginator-rename';
 })
 export class TableauComponent implements OnInit, AfterViewInit {
 
-  @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   beers: Beer[] = [];
+  beerLength!: number
   faBeer = faBeer; faPlus = faPlus; faDelete = faTrash; faUpdate = faPen;
   expandedElement!: Beer | null;
   public dataSource = new MatTableDataSource<Beer>();
   displayedColumns: string[] = [
+    'index',
     'name',
     'country',
     'type',
@@ -45,14 +48,17 @@ export class TableauComponent implements OnInit, AfterViewInit {
   constructor(private readonly beerService : BeerService){}
 
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
+    this.paginator.page.pipe(startWith(null), tap(() => {
+      this.beerService.fetchPageBeer(this.paginator.pageSize, this.paginator.pageIndex).subscribe((beers) => {
+        this.beers = beers;
+        this.dataSource = new MatTableDataSource(this.beers);
+      })})).subscribe();
   }
 
   ngOnInit(): void {
-    this.beerService.fetchNumber().subscribe((beers) => {
-      this.beers = beers;
-      this.dataSource = new MatTableDataSource(this.beers);
-    });
+    this.beerService.fetch().subscribe((beers) => {
+      this.beerLength = beers.length;
+    })
   }
 
   add() {

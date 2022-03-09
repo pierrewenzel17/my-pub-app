@@ -12,7 +12,7 @@ const dutchRangeLabel = (page: number, pageSize: number, length: number) => {
       Math.min(startIndex + pageSize, length) :
       startIndex + pageSize;
 
-  return `${startIndex + 1} - ${endIndex} van ${length}`;
+  return `${startIndex + 1} - ${endIndex} sur ${length}`;
 }
 
 
