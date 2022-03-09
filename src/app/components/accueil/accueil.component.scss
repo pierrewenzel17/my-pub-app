@@ -49,12 +49,22 @@ mat-list-item {
   cursor: pointer;
   transition: all 0.2s ease-out 10ms;
 }
-
+mat-list {
+  width: 1020px;
+  margin-left: auto;
+  margin-right: auto;
+}
 mat-list-item:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   font-size: 20px;
 }
-
+.ng-fa-icon {
+  transition: all 0.7s ease-out 10ms;
+}
+.ng-fa-icon:hover {
+  transform: rotate(360deg);
+  color: #e7993d;
+}
 .buttons-fab {
   height: 170px;
   width: 90px;
