@@ -1,1 +1,20 @@
-<p>contact works!</p>
+<section class="container" style="width: 1000px;">
+  <div class="content">
+    <div fxLayout="row wrap" fxLayoutGap="16px grid">
+      <div [fxFlex]="(100/gridColumns) + '%'" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let num of ['./../../../assets/vivien.jpg','./../../../assets/seb.jpg','./../../../assets/pierre.png']">
+        <mat-card class="mat-elevation-z4">
+          <mat-card-header>
+            <mat-card-title></mat-card-title>
+          </mat-card-header>
+          <img mat-card-image src={{num}} alt="photo">
+          <mat-card-content>
+            <p>My Pub App Application Designer</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button><a href="mailto:marc.petitdemange57@gmail.com">CONTACTER</a></button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</section>

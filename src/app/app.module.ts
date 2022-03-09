@@ -35,6 +35,7 @@ import { ContactComponent } from './components/contact/contact.component';
 import { GraphComponent } from './components/graph/graph.component';
 import { TableauComponent } from './components/tableau/tableau.component';
 import { ListComponent } from './components/list/list.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { ListComponent } from './components/list/list.component';
     MatSortModule,
     MatProgressSpinnerModule,
     NgbModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]

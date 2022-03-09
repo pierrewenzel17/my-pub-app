@@ -1,0 +1,27 @@
+mat-toolbar {
+  justify-content: space-between;
+}
+
+.content {
+  padding: 16px;
+}
+
+.content > mat-card {
+  margin-bottom: 16px;
+}
+
+.container {
+  margin: 10% auto 0% auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item {
+  width: 10em;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
