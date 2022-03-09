@@ -43,17 +43,16 @@ mat-list-item {
   background-color: white;
   font-size: 14px;
   display: block;
-  margin: 3px 0;
-  padding: 0;
+  margin: 13px 0 13px 0;
   height: 150px;
   width: 800px;
-  transition: box-shadow 0.2s;
   cursor: pointer;
+  transition: all 0.2s ease-out 10ms;
 }
 
 mat-list-item:hover {
-  box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14),
-    0 9px 46px 8px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  font-size: 20px;
 }
 
 .buttons-fab {
