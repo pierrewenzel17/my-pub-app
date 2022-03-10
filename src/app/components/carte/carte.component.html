@@ -1,0 +1,17 @@
+<mat-card class="carteCustom">
+  <mat-card-header>
+    <i mat-card-avatar class="fa-solid fa-beer-mug-empty fa-2xl"></i>
+    <mat-card-title> {{beer?.name| uppercase}} | {{beer.country}}</mat-card-title>
+    <mat-card-subtitle>
+      {{beer.type}} | {{beer.categories}}
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-card-subtitle class="info">
+      {{beer.bottle}} cl | {{beer.degree}}°
+    </mat-card-subtitle>
+    <mat-card-subtitle>
+      {{beer?.description}}
+    </mat-card-subtitle>
+  </mat-card-content>
+</mat-card>

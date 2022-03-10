@@ -1,0 +1,73 @@
+<mat-card class="mat-whiteframe-2dp">
+  <mat-card-title>
+    <span>The Beer</span>
+  </mat-card-title>
+
+  <mat-card-content>
+    <form novalidate [formGroup]="form">
+
+      <div class="row space">
+        <mat-form-field class="name col" >
+          <mat-label>Nom</mat-label>
+          <input formControlName="name" name="name" matInput placeholder="ex : La chouffe" required/>
+          <mat-error *ngIf="form.get('name')!.dirty && form.get('name')!.errors?.['required']"><br />Le nom est obligatoire</mat-error>
+          <mat-error *ngIf="form.get('name')!.dirty && form.get('name')!.errors?.['minlength']"><br />Le nom doit avoir au moins 2 caractères </mat-error>
+        </mat-form-field>
+        <mat-form-field class="name col" >
+          <mat-label>Pays</mat-label>
+          <input formControlName="country"  matInput placeholder="ex : Zimbabwe" name="country" required/>
+          <mat-error *ngIf="form.get('country')!.dirty && form.get('country')!.errors?.['required']"><br />Le pays est obligatoire</mat-error>
+          <mat-error *ngIf="form.get('country')!.dirty && form.get('country')!.errors?.['minlength']"><br />Le pays doit avoir au moins 4 caractères </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row space">
+        <mat-form-field class="col">
+          <mat-label>Type</mat-label>
+          <input formControlName="type"  matInput placeholder="ex : Pale Ale" name="country" required/>
+          <mat-error *ngIf="form.get('type')!.dirty && form.get('type')!.errors?.['required']"><br />Le type est obligatoire</mat-error>
+        </mat-form-field>
+        <mat-form-field class="col">
+          <mat-label>Catégories</mat-label>
+          <mat-select matNativeControl formControlName="categories" name="categories" required>
+            <mat-option value="Blonde">Blonde</mat-option>
+            <mat-option value="Blanche">Blanche</mat-option>
+            <mat-option value="Brune">Brune</mat-option>
+            <mat-option value="Ambrée">Ambrée</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+
+      <div class="row space">
+        <mat-form-field class="col" floatLabel="always">
+          <mat-label>Degré</mat-label>
+          <input formControlName="degree" matInput type="number" placeholder="0.0" required  ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+          step="0.01"/>
+          <mat-error *ngIf="form.get('degree')!.invalid">Le degré doit être compris entre  0 et 100 et le champs est obligatoire</mat-error>
+        </mat-form-field>
+        <mat-form-field class="col" floatLabel="always">
+          <mat-label>Bouteille</mat-label>
+          <input formControlName="bottle" matInput type="number" placeholder="0.0" required ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+          step="0.01"/>
+          <span matSuffix>cl</span>
+          <mat-error *ngIf="form.get('bottle')!.invalid">Le champs est obligatoire</mat-error>
+        </mat-form-field>
+      </div>
+      
+
+      <div class="row col-lg-12 space">
+        <mat-form-field>
+          <mat-label>Description</mat-label>
+          <textarea formControlName="description"  matInput placeholder="Description de la bière ..." name="description" required></textarea>
+          <mat-error *ngIf="form.get('description')!.dirty && form.get('type')!.errors?.['required']"><br />La description est obligatoire</mat-error>
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+    <button mat-button type="button" (click)="cancel()">Annuler</button>
+    <button mat-button type="submit" color="primary" (click)="submit(form.value)" [disabled]="!form.valid">Valider</button>
+  </mat-card-actions>
+</mat-card>
