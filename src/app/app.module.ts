@@ -36,6 +36,7 @@ import { GraphComponent } from './components/graph/graph.component';
 import { TableauComponent } from './components/tableau/tableau.component';
 import { ListComponent } from './components/list/list.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,11 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatProgressSpinnerModule,
     NgbModule,
     MatDatepickerModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    NgxEchartsModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts')
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

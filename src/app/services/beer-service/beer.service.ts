@@ -44,8 +44,9 @@ export class BeerService {
     return this.http.get<Beer>(this.urlServer.uneBiere.replace(':id', id));
   }
 
-  fetchNumber(): Observable<Beer[]> {
-    return this.http.get<Beer[]>(this.urlServer.toutesLesBieresParNombre);
+
+  fetchPageBeer(pageSize: number, pageIndex: number): Observable<Beer[]> {
+    return this.http.get<Beer[]>(this.urlServer.toutesLesBieresParNombre+ `?$top=${pageSize}&$skip=${pageIndex}`);
   }
 
   create(biere: Beer): Observable<Beer> {
