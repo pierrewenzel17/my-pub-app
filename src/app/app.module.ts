@@ -37,6 +37,11 @@ import { TableauComponent } from './components/tableau/tableau.component';
 import { ListComponent } from './components/list/list.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { FormulaireComponent } from './components/formulaire/formulaire.component';
+import { PopUpComponent } from './components/pop-up/pop-up.component';
+import { MatSelectModule } from '@angular/material/select';
+import { EditionComponent } from './components/edition/edition.component';
+import { InputDecimalDirective } from './components/formulaire/input-decimal.directive';
 
 @NgModule({
   declarations: [
@@ -47,7 +52,11 @@ import { NgxEchartsModule } from 'ngx-echarts';
     ContactComponent,
     GraphComponent,
     TableauComponent,
-    ListComponent
+    ListComponent,
+    FormulaireComponent,
+    PopUpComponent,
+    EditionComponent,
+    InputDecimalDirective
   ],
   imports: [
     BrowserModule,
@@ -75,6 +84,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatSelectModule,
     MatProgressSpinnerModule,
     NgbModule,
     MatDatepickerModule,

@@ -68,7 +68,8 @@ export class GraphComponent implements OnInit {
     this.chartC = myChart;
     let data: Map<string, any> = new Map();
     this.listBeer.forEach((beer: Beer) => {
-      this.chooseChartData(data, beer.country);
+      if(beer.country !== undefined)
+        this.chooseChartData(data, beer.country);
     });
     let valeurs = Array.from(data.values());
     this.chartOptionCountry.series = [
@@ -93,7 +94,8 @@ export class GraphComponent implements OnInit {
     this.chartT = myChart
     let data: Map<string, any> = new Map();
     this.listBeer.forEach((beer: Beer) => {
-      this.chooseChartData(data, beer.type);
+      if(beer.type !== undefined)
+        this.chooseChartData(data, beer.type);
     });
     let valeurs = Array.from(data.values());
     this.chartOptionType.series = [
@@ -118,7 +120,8 @@ export class GraphComponent implements OnInit {
     this.chartCateg = this.chartCateg
     let data: Map<string, any> = new Map();
     this.listBeer.forEach((beer: Beer) => {
-      this.chooseChartData(data, beer.categories);
+      if(beer.categories !== undefined)
+        this.chooseChartData(data, beer.categories);
     });
     let axe: string[] = []
     let val: number[] = []

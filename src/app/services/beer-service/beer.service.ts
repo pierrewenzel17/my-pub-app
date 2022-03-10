@@ -46,7 +46,7 @@ export class BeerService {
 
 
   fetchPageBeer(pageSize: number, pageIndex: number): Observable<Beer[]> {
-    return this.http.get<Beer[]>(this.urlServer.toutesLesBieresParNombre+ `?$top=${pageSize}&$skip=${pageIndex}`);
+    return this.http.get<Beer[]>(this.urlServer.toutesLesBieresParNombre+ `?$top=${pageSize}&$skip=${pageIndex * pageSize}`);
   }
 
   create(biere: Beer): Observable<Beer> {

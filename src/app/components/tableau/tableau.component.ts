@@ -7,7 +7,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { faBeer, faPlus, faTrash, faPen } from '@fortawesome/free-solid-svg-icons';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { getPaginatorRename } from './paginator-rename';
-import { startWith, tap } from 'rxjs';
+import { mergeMap, startWith, tap } from 'rxjs';
+import { PopUpComponent } from '../pop-up/pop-up.component';
 
 @Component({
   selector: 'tableau',
@@ -28,6 +29,8 @@ export class TableauComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
+  private addDialog: MatDialogRef<PopUpComponent> | any;
+
   beers: Beer[] = [];
   beerLength!: number
   faBeer = faBeer; faPlus = faPlus; faDelete = faTrash; faUpdate = faPen;
@@ -45,7 +48,9 @@ export class TableauComponent implements OnInit, AfterViewInit {
     'delete'
   ];
 
-  constructor(private readonly beerService : BeerService){}
+  dialogStatus: string = "inactive";
+
+  constructor(private readonly beerService : BeerService, public dialog: MatDialog){}
 
   ngAfterViewInit(): void {
     this.paginator.page.pipe(startWith(null), tap(() => {
@@ -61,19 +66,57 @@ export class TableauComponent implements OnInit, AfterViewInit {
     })
   }
 
-  add() {
-    window.location.reload();
+  showDialog() {
+    this.dialogStatus = 'active';
+    this.addDialog = this.dialog.open(PopUpComponent, {
+      width: '600px',
+      data: {}
+    });
+
+    this.addDialog.afterClosed().subscribe((beer:any)=> {
+      this.dialogStatus = 'inactive';
+      if (beer) {
+        this.add(beer);
+      }
+    });
   }
 
-  edit() {
-    window.location.reload();
+  add(beer: Beer) {
+    this.beerService
+      .create(beer)
+      .pipe(mergeMap(() => this.beerService.fetch()))
+      .subscribe(beers => {
+        this.beers = beers;
+        this.hideDialog();
+      });
+      window.location.reload();
+  }
+
+  update(beer: Beer) {
+    this.beerService
+      .update(beer)
+      .pipe(mergeMap(() => this.beerService.fetch()))
+      .subscribe(beers => {
+        this.beers = beers;
+        this.hideDialog();
+      });
+      window.location.reload();
   }
 
   delete(beer: Beer) {
+    if(beer.id !== undefined) {
     this.beerService.delete(beer.id).subscribe((beers) => {
       this.beers = beers;
     });
     window.location.reload();
+  }
+  }
+
+  hideDialog() {
+    this.dialogStatus = 'inactive';
+    if(this.addDialog != undefined){
+      this.addDialog.close();
+    }
   }
 }
 
