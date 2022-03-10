@@ -26,7 +26,7 @@ export class GraphComponent implements OnInit {
       trigger: 'item'
     },
     legend: {
-      top: 'bottom'
+      show: false
     }
   };
 
@@ -39,7 +39,7 @@ export class GraphComponent implements OnInit {
       trigger: 'item'
     },
     legend: {
-      top: 'bottom'
+      show: false
     }
   };
 

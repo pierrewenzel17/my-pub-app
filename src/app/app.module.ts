@@ -34,14 +34,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ContactComponent } from './components/contact/contact.component';
 import { GraphComponent } from './components/graph/graph.component';
 import { TableauComponent } from './components/tableau/tableau.component';
-import { ListComponent } from './components/list/list.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { FormulaireComponent } from './components/formulaire/formulaire.component';
 import { PopUpComponent } from './components/pop-up/pop-up.component';
 import { MatSelectModule } from '@angular/material/select';
 import { EditionComponent } from './components/edition/edition.component';
-import { InputDecimalDirective } from './components/formulaire/input-decimal.directive';
+import { CarteComponent } from './components/carte/carte.component';
 
 @NgModule({
   declarations: [
@@ -52,11 +51,10 @@ import { InputDecimalDirective } from './components/formulaire/input-decimal.dir
     ContactComponent,
     GraphComponent,
     TableauComponent,
-    ListComponent,
     FormulaireComponent,
     PopUpComponent,
     EditionComponent,
-    InputDecimalDirective
+    CarteComponent
   ],
   imports: [
     BrowserModule,

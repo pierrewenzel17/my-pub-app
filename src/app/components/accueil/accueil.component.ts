@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { Beer } from 'app/models/beer';
 import { BeerService } from 'app/services/beer-service/beer.service';
 import { faBeer } from '@fortawesome/free-solid-svg-icons';
@@ -10,8 +10,10 @@ import { faBeer } from '@fortawesome/free-solid-svg-icons';
 })
 export class AccueilComponent implements OnInit {
 
+  @Output()
   beers: Beer[] = [];
   faBeer = faBeer;
+  search: string = "";
 
   constructor(private readonly beerService: BeerService){}
 
@@ -20,4 +22,11 @@ export class AccueilComponent implements OnInit {
       this.beers = beers || [];
     });
   }
+
+  submit() {
+    this.beerService.fetchSearch(this.search).subscribe((beers) => {
+      this.beers = beers || [];
+    });
+  }
+
 }

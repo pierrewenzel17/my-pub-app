@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, Input, Output } from '@angular/core';
 import { Beer } from 'app/models/beer';
 import { BeerService } from 'app/services/beer-service/beer.service';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
@@ -7,8 +7,9 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { faBeer, faPlus, faTrash, faPen } from '@fortawesome/free-solid-svg-icons';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { getPaginatorRename } from './paginator-rename';
-import { mergeMap, startWith, tap } from 'rxjs';
+import { mergeMap, Observable, ReplaySubject, startWith, tap } from 'rxjs';
 import { PopUpComponent } from '../pop-up/pop-up.component';
+import {DataSource} from '@angular/cdk/collections';
 
 @Component({
   selector: 'tableau',
@@ -32,10 +33,11 @@ export class TableauComponent implements OnInit, AfterViewInit {
   private addDialog: MatDialogRef<PopUpComponent> | any;
 
   beers: Beer[] = [];
+  @Output()
   beerLength!: number
   faBeer = faBeer; faPlus = faPlus; faDelete = faTrash; faUpdate = faPen;
   expandedElement!: Beer | null;
-  public dataSource = new MatTableDataSource<Beer>();
+  public dataSource!: BeerDataSource
   displayedColumns: string[] = [
     'index',
     'name',
@@ -43,20 +45,19 @@ export class TableauComponent implements OnInit, AfterViewInit {
     'type',
     'categories',
     'degree',
-    'bottle',
-    'edit',
-    'delete'
+    'bottle'
   ];
 
   dialogStatus: string = "inactive";
 
-  constructor(private readonly beerService : BeerService, public dialog: MatDialog){}
+  constructor(private readonly beerService : BeerService, public dialog: MatDialog){
+  }
 
   ngAfterViewInit(): void {
     this.paginator.page.pipe(startWith(null), tap(() => {
       this.beerService.fetchPageBeer(this.paginator.pageSize, this.paginator.pageIndex).subscribe((beers) => {
         this.beers = beers;
-        this.dataSource = new MatTableDataSource(this.beers);
+        this.dataSource = new BeerDataSource(this.beers);
       })})).subscribe();
   }
 
@@ -86,30 +87,41 @@ export class TableauComponent implements OnInit, AfterViewInit {
       .create(beer)
       .pipe(mergeMap(() => this.beerService.fetch()))
       .subscribe(beers => {
-        this.beers = beers;
-        this.hideDialog();
+        this.beerLength = beers.length;
       });
-      window.location.reload();
+    this.beerService.fetchPageBeer(this.paginator.pageSize, this.paginator.pageIndex).subscribe(beers => {
+        this.beers = beers;
+        this.dataSource.setData(this.beers);
+        this.hideDialog();
+    });
   }
 
   update(beer: Beer) {
     this.beerService
       .update(beer)
-      .pipe(mergeMap(() => this.beerService.fetch()))
+      .pipe(mergeMap(() => this.beerService.fetchPageBeer(this.paginator.pageSize, this.paginator.pageIndex)))
       .subscribe(beers => {
         this.beers = beers;
+        this.dataSource.setData(this.beers);
         this.hideDialog();
       });
-      window.location.reload();
   }
 
   delete(beer: Beer) {
     if(beer.id !== undefined) {
-    this.beerService.delete(beer.id).subscribe((beers) => {
-      this.beers = beers;
+    this.beerService
+      .delete(beer.id)
+      .pipe(mergeMap(() => this.beerService.fetch()))
+      .subscribe((beers) => {
+        this.beerLength = beers.length;
+        this.beerService.fetchPageBeer(this.paginator.pageSize, this.paginator.pageIndex).subscribe(beers => {
+          this.beers = beers;
+          this.dataSource.setData(this.beers);
+        })
     });
-    window.location.reload();
-  }
+   
+
+    }
   }
 
   hideDialog() {
@@ -120,3 +132,21 @@ export class TableauComponent implements OnInit, AfterViewInit {
   }
 }
 
+class BeerDataSource extends DataSource<Beer> {
+  private _dataStream = new ReplaySubject<Beer[]>();
+
+  constructor(initialData: Beer[]) {
+    super();
+    this.setData(initialData);
+  }
+
+  connect(): Observable<Beer[]> {
+    return this._dataStream;
+  }
+
+  disconnect() {}
+
+  setData(data: Beer[]) {
+    this._dataStream.next(data);
+  }
+}
