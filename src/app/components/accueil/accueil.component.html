@@ -1,8 +1,8 @@
 <div class="container">
   <div class="row align-items-center justify-content-center" style="margin-top: 5%;">
     <mat-form-field class="col-md-7">
-      <input matInput placeholder="Rechercher une bière par son nom ..." [(ngModel)]= "search">
-      <button matSuffix mat-button (click)="submit()"><mat-icon>search</mat-icon></button>
+      <input matInput (keydown.enter)="submit($event)" placeholder="Rechercher une bière par son nom ..." [(ngModel)]= "search">
+      <button matSuffix mat-button (click)="submit($event)"><mat-icon>search</mat-icon></button>
     </mat-form-field>
   </div>
   <div *ngFor="let beer of beers" class="row align-items-center justify-content-center">

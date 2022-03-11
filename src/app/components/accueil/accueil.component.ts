@@ -23,7 +23,7 @@ export class AccueilComponent implements OnInit {
     });
   }
 
-  submit() {
+  submit(event: any) {
     this.beerService.fetchSearch(this.search).subscribe((beers) => {
       this.beers = beers || [];
     });

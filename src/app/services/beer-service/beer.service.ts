@@ -45,7 +45,7 @@ export class BeerService {
   }
 
   fetchSearch(name:string): Observable<Beer[]> {
-    return this.http.get<Beer[]>(this.urlServer.toutesLesBieres + `?$filter=contains(Name, '${name}')`);
+    return this.http.get<Beer[]>(this.urlServer.toutesLesBieres + `?$filter=contains(toUpper(Name), toUpper('${name}'))`);
   }
 
   fetchPageBeer(pageSize: number, pageIndex: number): Observable<Beer[]> {
