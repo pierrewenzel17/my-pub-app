@@ -8,7 +8,7 @@
 > docker-compose up -d --build
 ```
 
-## Lancement du projet pour le developement
+## Lancement du projet pour le developpement
 
 ```sh
 > docker-compose up -d api
@@ -18,9 +18,9 @@
 
 ## Information
 
-- Pour ajouter supprimer et éditer un bière il faut ce rentre sur la page tableau
+- Pour ajouter, supprimer ou éditer une bière, il faut se rendre sur la page Tableau
 
-- Cliquer sur une ligne pour éditer ou supprimer
+- Cliquer sur une ligne pour l'éditer ou la supprimer
 
 ## Beer API
 
